@@ -3,6 +3,9 @@
     --green:#3bbc81;
     --blue: #3ba8bc;
 }
+* {
+    box-sizing: border-box;
+  }
 body{
     margin: 0;
     font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans", Arial,sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -13,20 +16,32 @@ background-color: var(--red);
 body.pomodoro #control-btn{
     color: var(--red);
 }
+body.pomodoro #controls button:first-child{
+    background: none rgba(0, 0, 0, 0.15);
+}
+/*  */
 body.short-break{ 
     background-color:var(--green);
 }
 body.short-break #control-btn{
     color: var(--green);
 }
+body.short-break #controls button:nth-child(2){
+    background: none rgba(0, 0, 0, 0.15);
+}
+/*  */
 body.long-break{
     background-color: var(--blue);
 }
 body.long-break #control-btn{
     color: var(--blue);
 }
+body.long-break #controls button:nth-child(3){
+    background: none rgba(0, 0, 0, 0.15);
+}
+/*  */
 button{
-    white-space: nowrap;
+    /* white-space: nowrap; */
     border: none;
     color: white;
     margin: 0px;
@@ -39,24 +54,25 @@ button{
     box-shadow: none;
     font-weight: 300;
 }
+button:hover{
+    background: none rgba(0, 0, 0, 0.08);
+}
 #control-btn{
     background: white;
     padding: 1rem 2rem;
     font-weight: bold;
 }
 .container{
-    /* width: min(80em, calc(80% + 2em)); */
-    max-width: 620px;
-    margin: 0 auto;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100vh;
     width: 100vw;
 }
 .pomodoro_container{
-    position: absolute;
-    top: 50%; right: 50%;
-    transform: translate(50%,-50%);
-    padding: 3rem;
+    width: min(30em, calc(80% + 2em));
+    margin: 0 auto;
+    padding: 2rem 0;
     background: #ffffff2b;
     border-radius: 6px;
     text-align: center;
@@ -76,5 +92,6 @@ button{
     font-size: calc(0.625rem + 10vmin);
     font-weight: bold;
     color: white;
-    
+    /* prevents numbers to 'jump' */
+    font-variant-numeric: tabular-nums;
 }
