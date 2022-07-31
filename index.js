@@ -5,8 +5,9 @@ const controlBtn = document.getElementById("control-btn");
 const pomodoroBtn = document.getElementById("pomodoro-btn");
 const shortBreakBtn = document.getElementById("short-break-btn");
 const longBreakBtn = document.getElementById("long-break-btn");
+const resetBtn = document.getElementById("reset");
 // const save = document.getElementById("save");
-controlBtn.addEventListener("click", startStopTimer);
+
 // save.addEventListener("click", add_local);
 const modes = [
   {
@@ -32,51 +33,78 @@ let startTime = 0;
 let elapsedTime = 0;
 let interval = null;
 
-console.log(modes[1].name.toLowerCase().replace(/ /g, "-"));
+//-------------------//
+// Event Listeners  //
+//-----------------//
+controlBtn.addEventListener("click", startStopTimer);
+//
+resetBtn.addEventListener("click", () => {
+  clearTimeout(interval);
+  displayTime(pomodoroMode, 0);
+  controlBtn.innerHTML = "START";
+  resetBtn.classList.remove("reset-visible");
+});
 modes.forEach((mode) =>
-  mode.button.addEventListener("click", (e) => {
-    console.log(e.target);
+  mode.button.addEventListener("click", () => {
     clearTimeout(interval);
     body.classList.remove("pomodoro", "short-break", "long-break");
     // name to lower case, no spaces between words, joined by a dash
     const nameClass = mode.name.toLowerCase().replace(/ /g, "-");
     body.classList.add(nameClass);
-    display.innerHTML = "";
+    // display.innerHTML = "";
     controlBtn.innerHTML = "START";
+    resetBtn.classList.remove("reset-visible");
     pomodoroMode = mode.timer;
     message = mode.name;
     displayTime(pomodoroMode, 0);
   })
 );
 
+//-----------------------//
+// START / STOP Button  //
+//-----------------====//
+
 function startStopTimer() {
   if (controlBtn.innerHTML === "START") {
     startTime = Date.now();
-    startStopPomodoro(message, pomodoroMode);
+    pomodoroCounter(message, pomodoroMode);
+    //
+    resetBtn.classList.add("reset-visible");
     controlBtn.innerHTML = "STOP";
   } else {
     elapsedTime += Date.now() - startTime;
     clearTimeout(interval);
+    //
+    resetBtn.classList.remove("reset-visible");
     controlBtn.innerHTML = "START";
   }
 }
-function startStopPomodoro(message, timer) {
+
+//-----------------------//
+// COUNTDOWN  //
+//-----------------====//
+function pomodoroCounter(message, timer) {
+  //
   interval = setInterval(function () {
     const time = Date.now() - startTime + elapsedTime;
     const pomodoroTime = pomodoroMode * 60000;
     const seconds = parseInt((timer * 60 - time / 1000) % 60);
     const minutes = parseInt((timer - time / (1000 * 60)) % 60);
-    // call function to display the time
+    // COUTNTDOWN STOPS AT ZERO AND KICKS IN NOTIFICATION
     if (time >= pomodoroTime) {
       clearTimeout(interval);
       displayTime(0, 0);
       notify(message);
+      controlBtn.innerHTML = "START";
+      resetBtn.classList.remove("reset-visible");
     } else {
       displayTime(minutes, seconds);
     }
   }, 1);
 }
-
+//-----------------------//
+// DISPLAY TIME  //
+//-----------------====//
 function displayTime(minutes, seconds) {
   // if only one digit prepend a zero
   const time = [minutes, seconds].map((time) =>
@@ -85,6 +113,9 @@ function displayTime(minutes, seconds) {
   display.innerHTML = time.join(":");
   document.title = time.join(":");
 }
+//-----------------------//
+// BROWSER NOTIFICATIONS  //
+//-----------------====//
 //https://stackoverflow.com/questions/57523910/intercept-html5-web-notifications-in-a-browser-environment/57572671#57572671
 function notify(message) {
   function notifyCallback(title, opt) {
