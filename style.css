@@ -1,15 +1,29 @@
+:root{
+    --red:#ba3c3e;
+    --green:#3bbc81;
+    --blue: #3ba8bc;
+}
 body{
     margin: 0;
     font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Liberation Sans", Arial,sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 body.pomodoro {
-background-color: #bc3b3b;
+background-color: var(--red);
+}
+body.pomodoro #control-btn{
+    color: var(--red);
 }
 body.short-break{ 
-    background-color: #3bbc81;
+    background-color:var(--green);
+}
+body.short-break #control-btn{
+    color: var(--green);
 }
 body.long-break{
-    background-color: #3ba8bc;
+    background-color: var(--blue);
+}
+body.long-break #control-btn{
+    color: var(--blue);
 }
 button{
     white-space: nowrap;
@@ -26,7 +40,6 @@ button{
     font-weight: 300;
 }
 #control-btn{
-    color: #ba3c3e;
     background: white;
     padding: 1rem 2rem;
     font-weight: bold;
