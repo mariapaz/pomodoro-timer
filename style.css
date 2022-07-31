@@ -1,5 +1,5 @@
 :root{
-    --red:#ba3c3e;
+    --red:#d75654;
     --green:#3bbc81;
     --blue: #3ba8bc;
 }
@@ -76,6 +76,10 @@ button:hover{
     background: #ffffff2b;
     border-radius: 6px;
     text-align: center;
+    color: white;
+}
+.pomodoro_display{
+    position: relative;
 }
 .pomodoro_display > * + *{
     margin-top: 2rem;
@@ -94,4 +98,26 @@ button:hover{
     color: white;
     /* prevents numbers to 'jump' */
     font-variant-numeric: tabular-nums;
+}
+
+#reset {
+    width: calc((100% - 200px) / 2 + 5%);
+    position: absolute;
+    right: 0px;
+    bottom: -6px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+}
+#reset.reset-visible{
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.2s ease-out 0s;
+}
+#reset svg{
+    width: 2.5rem;
+    height: 2.5rem;
 }
