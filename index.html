@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Time</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="pomodoro">
+    <header>
+      <div class="setting">
+        <div class="pomodoro-length">
+          <!-- <label for="pomodoroLength"
+            >Length of your pomodoros in minutes</label
+          >
+          <input type="text" id="pomodoroLength" />
+          <input type="button" id="save" value="Save" /> -->
+        </div>
+        <div class="short-break-length"></div>
+        <div class="long-break-length"></div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="pomodoro_container">
+          <div class="pomodoro_display">
+            <div id="controls" class="controls">
+              <button id="pomodoro-btn">Pomodoro</button>
+              <button id="short-break-btn">Short Break</button>
+              <button id="long-break-btn">Long Break</button>
+            </div>
+            <div id="display">25:00</div>
+            <button id="control-btn">START</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
